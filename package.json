@@ -1,0 +1,24 @@
+{
+  "name": "constructor-word-guess",
+  "version": "1.0.0",
+  "description": "Unit 11 JavaScript Assignment - Word Guess Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BillySterling/constructor-word-guess.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "constructor",
+    "CLI"
+  ],
+  "author": "Billy Sterling",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BillySterling/constructor-word-guess/issues"
+  },
+  "homepage": "https://github.com/BillySterling/constructor-word-guess#readme"
+}
