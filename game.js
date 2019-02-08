@@ -11,8 +11,8 @@ var Word = require("./Word.js");
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
 
-//var wordArray = ["dog"]
-var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"]
+var wordArray = ["north dakota", "utah"]
+//var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"]
 
 var usedGuesses = 0;
 var totalGuesses = 5;
@@ -21,6 +21,8 @@ var remGuesses = 0;
 var matchLetter = false;
 var chosenWord = ""
 var gameWord = ""
+
+//var letterCheck = /^[a-z]$/ //Regex to test for valid letter input
 
 function playGame(){
     console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the Word\n");
@@ -31,6 +33,13 @@ function playGame(){
     // console.log(gameWord)
     gameWord.makeWord();
     gameWord.dispWord()
+    
+//    for (var i = 0; i < gameWord.letterArr.length; i++) {
+//        if (!letterCheck.test(gameWord.letterArr[i].char)) {
+//            gameWord.letterArr[i].guessed = true;
+//        }
+//    }
+
     debugger;
     getGuess()
 }
@@ -48,8 +57,6 @@ function getGuess(){
         gameWord.makeGuess(response.guess)
         gameWord.dispWord()
         debugger;
-//        usedGuesses ++
-
         matchLetter = false;
         for (i=0; i < gameWord.getWord.length; i++){
             if (response.guess === gameWord.getWord[i]){
