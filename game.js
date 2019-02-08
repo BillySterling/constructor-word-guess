@@ -1,54 +1,103 @@
 /*index.js**: The file containing the logic for the course of the game, which depends on `Word.js` and:
   * Randomly selects a word and uses the `Word` constructor to store it
   * Prompts the user for each guess and keeps track of the user's remaining guesses
+
+3. `Letter.js` *should not* `require` any other files.
+
+4. `Word.js` *should only* require `Letter.js`
 */
 
 var Word = require("./Word.js");
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
-var numGuesses = 0;
+
+var wordArray = ["dog"]
+//var wordArray = ["ALABAMA","ALASKA","ARIZONA","ARKANSAS","CALIFORNIA","COLORADO","CONNECTICUT","DELAWARE","DISTRICT OF COLUMBIA","FLORIDA","GEORGIA","HAWAII","IDAHO","ILLINOIS","INDIANA","IOWA","KANSAS","KENTUCKY","LOUISIANA","MAINE","MONTANA","NEBRASKA","NEVADA","NEW HAMPSHIRE","NEW JERSEY","NEW MEXICO","NEW YORK","NORTH CAROLINA","NORTH DAKOTA","OHIO","OKLAHOMA","OREGON","MARYLAND","MASSACHUSETTS","MICHIGAN","MINNESOTA","MISSISSIPPI","MISSOURI","PENNSYLVANIA","RHODE ISLAND","SOUTH CAROLINA","SOUTH DAKOTA","TENNESSEE","TEXAS","UTAH","VERMONT","VIRGINIA","WASHINGTON","WEST VIRGINIA","WISCONSIN","WYOMING"]
+
+var usedGuesses = 0;
+var totalGuesses = 5;
 var correctGuesses = 0;
+var remGuesses = 0;
+var matchLetter = false;
+var chosenWord = ""
+var gameWord = ""
 
-function playGame() {
-    var wordArr = ["cat", "dog"];
-    var numGuesses = 10;
-    // Randomly selects a word and uses the `Word` constructor to store it
-    var chosenWord = wordArr[Math.floor(Math.random() * wordArr.length)];
-    var gameWord = new Word(chosenWord);
+function playGame(){
+    console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the Word\n");
+    chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]
+    console.log(chosenWord);
+    debugger;
+    gameWord = new Word(chosenWord)
+    // console.log(gameWord)
     gameWord.makeWord();
-    gameWord.display();
-
-    var letterCheck = /^[a-z]$/ //Regex to test for valid letter input
-
-    function getGuess () {
-        inquirer.prompt([
-            {
-                type: "input",
-                name: "guess",
-                message: "Choose a Letter:"
-            }
-        ]).then(function(response) { 
-            myGuess = response.guess.toLowerCase();
-            if (letterCheck.test(myGuess)) {
-                //check numGuess >= 1, if not (i.e. =0) then game over
-                if (numGuesses >= 1 )  {
-                    gameWord.getGuess(myGuess);
-                    }
-                } else {
-                    console.log("Invalid Response!");
-            }
-
-        });
-
-    }
+    gameWord.dispWord()
+    debugger;
+    getGuess()
 }
+
+function getGuess(){
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Guess a letter",
+            name: "guess"
+        }
+    ]).then(function (response){
+        debugger;
+        response.guess = response.guess.toLowerCase();
+        gameWord.makeGuess(response.guess)
+        gameWord.dispWord()
+        debugger;
+        usedGuesses ++
+
+        matchLetter = false;
+        for (i=0; i < gameWord.getWord.length; i++){
+            if (response.guess === gameWord.getWord[i]){
+                correctGuesses ++
+                matchLetter = true;
+            }                
+        }
+        remGuesses = (totalGuesses - usedGuesses);
+        if (!matchLetter) {
+            console.log("Nope! You Have " + remGuesses + " Guesses Remaining. Try again\n");
+        } else {
+            console.log("Correct! You Have " + remGuesses + " Guesses Remaining.\n");
+        };
+        debugger;
+        if (usedGuesses < totalGuesses && correctGuesses < gameWord.getWord.length){
+            getGuess()
+        } else if (usedGuesses === totalGuesses){
+            console.log("No More Guesses! The correct answer is " + gameWord.getWord + "\n\n")
+            replayGame()
+        } else if (correctGuesses === gameWord.getWord.length){
+            console.log("You won!  You Guessed " + correctGuesses + " Times\n\n")
+            replayGame()
+        }
+    });
+};
+
+function replayGame(){
+
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "Want to play again?",
+            choices: ["Again", "Exit"],
+            name: "again"
+        }
+    ]).then(function(response) {
+        if (response.again === "Again") {
+            console.log("\nHere's your new word to guess:");
+            debugger;
+            usedGuesses = 0;
+            correctGuesses = 0;
+            chosenWord = "";
+            gameWord = "";
+            playGame();
+        } else {
+            console.log("\nGoodbye!\n");
+        }
+    });
+};
 
 playGame();
-
-function restartGame(){
-    numGuesses = 10;
-    correctGuesses = 0;
-    chosenWord = ""
-    gameWord = ""
-    startGame()
-}
