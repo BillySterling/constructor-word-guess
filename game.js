@@ -11,8 +11,8 @@ var Word = require("./Word.js");
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
 
-var wordArray = ["dog"]
-//var wordArray = ["ALABAMA","ALASKA","ARIZONA","ARKANSAS","CALIFORNIA","COLORADO","CONNECTICUT","DELAWARE","DISTRICT OF COLUMBIA","FLORIDA","GEORGIA","HAWAII","IDAHO","ILLINOIS","INDIANA","IOWA","KANSAS","KENTUCKY","LOUISIANA","MAINE","MONTANA","NEBRASKA","NEVADA","NEW HAMPSHIRE","NEW JERSEY","NEW MEXICO","NEW YORK","NORTH CAROLINA","NORTH DAKOTA","OHIO","OKLAHOMA","OREGON","MARYLAND","MASSACHUSETTS","MICHIGAN","MINNESOTA","MISSISSIPPI","MISSOURI","PENNSYLVANIA","RHODE ISLAND","SOUTH CAROLINA","SOUTH DAKOTA","TENNESSEE","TEXAS","UTAH","VERMONT","VIRGINIA","WASHINGTON","WEST VIRGINIA","WISCONSIN","WYOMING"]
+//var wordArray = ["dog"]
+var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"]
 
 var usedGuesses = 0;
 var totalGuesses = 5;
@@ -48,19 +48,21 @@ function getGuess(){
         gameWord.makeGuess(response.guess)
         gameWord.dispWord()
         debugger;
-        usedGuesses ++
+//        usedGuesses ++
 
         matchLetter = false;
         for (i=0; i < gameWord.getWord.length; i++){
             if (response.guess === gameWord.getWord[i]){
                 correctGuesses ++
                 matchLetter = true;
-            }                
+            } 
         }
-        remGuesses = (totalGuesses - usedGuesses);
         if (!matchLetter) {
+            usedGuesses ++
+            remGuesses = (totalGuesses - usedGuesses);
             console.log("Nope! You Have " + remGuesses + " Guesses Remaining. Try again\n");
         } else {
+            remGuesses = (totalGuesses - usedGuesses);
             console.log("Correct! You Have " + remGuesses + " Guesses Remaining.\n");
         };
         debugger;
