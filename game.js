@@ -15,18 +15,16 @@ var inquirer = require("inquirer");
 
 function playGame(){
     var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"];
-    var letterCheck = /^[a-z]$/; //Regex to test for valid letter input
+
+    //Regex to test for valid letter input
+    var letterCheck = /^[a-z]$/; 
 
     var totalGuesses = 5;
 
     console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the Word\n");
     var chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]
-//    console.log(chosenWord);
-    debugger;
     gameWord = new Word(chosenWord)
-    // console.log(gameWord)
     gameWord.makeWord();
-    debugger;
 
     for (var i = 0; i < gameWord.letterArr.length; i++) {
         if (!letterCheck.test(gameWord.letterArr[i].letter)) {
@@ -37,7 +35,6 @@ function playGame(){
    };
 
     gameWord.dispWord()
-    debugger;
 
     promptUser();
 
@@ -49,14 +46,13 @@ function playGame(){
                 name: "guess"
             }
         ]).then(function (response){
-            debugger;
             response.guess = response.guess.toLowerCase();
 
-    // validate user input
+            // validate user input
             if (totalGuesses >= 1) {
                 gameWord.makeGuess(response.guess);
             }
-    // set initially to false   
+            // set initially to false   
             var letterInWord = false;
 
             for (var i = 0; i < gameWord.letterArr.length; i++) {
@@ -65,14 +61,12 @@ function playGame(){
                 }
             }
             if (letterInWord) {
-                console.log("Correct!") }
+                console.log("Correct! You Have " + totalGuesses + " Guesses Remaining.\n") }
                 else {
-                    console.log("Incorrect, try again!");
                     totalGuesses--;
-                }
-            debugger;
+                    console.log("Incorrect, try again! You Have " + totalGuesses + " Guesses Remaining.\n");
+                    };
             gameWord.dispWord();
-            debugger;
 
             matchLetter = false;
             for (var i=0; i < gameWord.letterArr.length; i++){
@@ -83,7 +77,7 @@ function playGame(){
 
             if (!matchLetter) {
                 gameWord.dispWord();
-                console.log("You Won!");
+                console.log("You Won!  You Guessed " + totalGuesses + " Times.\n");
                 replayGame();
                 } else {
                     gameWord.dispWord()
@@ -109,7 +103,7 @@ function replayGame(){
         }
     ]).then(function(response) {
         if (response.again === "Again") {
-            console.log("\nHere's your new word to guess:");
+            console.log("\nHere's your new state to guess:");
             debugger;
             usedGuesses = 0;
             correctGuesses = 0;
