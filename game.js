@@ -19,9 +19,9 @@ function playGame(){
     //Regex to test for valid letter input
     var letterCheck = /^[a-z]$/; 
 
-    var totalGuesses = 5;
+    var totalGuesses = 8;
 
-    console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the Word\n");
+    console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the State Name\n");
     var chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]
     gameWord = new Word(chosenWord)
     gameWord.makeWord();
@@ -30,7 +30,6 @@ function playGame(){
         if (!letterCheck.test(gameWord.letterArr[i].letter)) {
             console.log(gameWord.letterArr[i].letter);
             gameWord.letterArr[i].guessed = true;
-            console.log(gameWord.letterArr[i].guessed);
         };
    };
 
@@ -64,9 +63,12 @@ function playGame(){
                 console.log("Correct! You Have " + totalGuesses + " Guesses Remaining.\n") }
                 else {
                     totalGuesses--;
-                    console.log("Incorrect, try again! You Have " + totalGuesses + " Guesses Remaining.\n");
+                    if (totalGuesses === 0) {
+                        console.log("Incorrect\n");
+                    } else {
+                        console.log("Incorrect, try again! You Have " + totalGuesses + " Guesses Remaining.\n");
+                        }
                     };
-            gameWord.dispWord();
 
             matchLetter = false;
             for (var i=0; i < gameWord.letterArr.length; i++){
@@ -77,12 +79,12 @@ function playGame(){
 
             if (!matchLetter) {
                 gameWord.dispWord();
-                console.log("You Won!  You Guessed " + totalGuesses + " Times.\n");
+                console.log("You Won!\n");
                 replayGame();
                 } else {
                     gameWord.dispWord()
                     if (totalGuesses === 0) {
-                        console.log("You Lost!");
+                        console.log("You Lost!  The Answer is: " + chosenWord.toUpperCase());
                         replayGame();
                     } else {
                         promptUser();
