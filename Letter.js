@@ -5,17 +5,16 @@
   * A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
   */
 
-//var letterCheck = /^[a-z]$/ //Regex to test for valid letter input - allows spaces in state names
+var letterCheck = /^[a-z]$/ //Regex to test for valid letter input - allows spaces in state names
 
 function Letter(char) {
     this.guessed = false;
     this.letter = char;
     this.showLetter = function() {
-//        if (this.guessed || !(letterCheck.test(this.letter))) {
-        if (this.guessed) {
+        if (this.guessed || !(letterCheck.test(this.letter))) {
+//        if (this.guessed) {
             debugger;
-            return char.toUpperCase();
-            console.log("Letter/char: " + char.toUpperCase());
+            return this.letter.toUpperCase();
         } else {
             return "_";
         }

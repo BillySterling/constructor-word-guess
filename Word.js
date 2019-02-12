@@ -8,11 +8,12 @@
 
 var Letter = require("./Letter.js");
 
-function Word(gameWord) {
+function Word(char) {
 //    this.gameWord = gameWord;
-    this.getWord = gameWord;
+    this.getWord = char;
     this.letterArr = [];
     this.makeWord = function() {
+        debugger;
         var gameArr = this.getWord.split("");
         for (var i=0; i < gameArr.length; i++) {
 //            console.log("gamearr[i]: " + gameArr[i]);
@@ -20,6 +21,7 @@ function Word(gameWord) {
         };
     };
     this.dispWord = function() {
+        debugger;
         var dispArr = [];
         for (var i = 0; i < this.letterArr.length; i++) {
             dispArr.push(this.letterArr[i].showLetter());
@@ -27,6 +29,7 @@ function Word(gameWord) {
         console.log(dispArr.join(" "));
     }
     this.makeGuess = function(char) {
+        debugger;
         for (var i = 0; i < this.letterArr.length; i++) {
             this.letterArr[i].checkLetter(char);
         }
