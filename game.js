@@ -7,29 +7,18 @@
 4. `Word.js` *should only* require `Letter.js`
 */
 
+// appreciating the help of my project-mate Sarah Kinneer when I hit a mental brick wall on multi-word (i.e. "New York") responses...
+
 var Word = require("./Word.js");
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
 
-//var wordArray = ["a b"]
-//var wordArray = ["new york", "utah"]
-//var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"]
-
-
-
-//var letterCheck = /^[a-z]$/ //Regex to test for valid letter input
-
 function playGame(){
-    var wordArray = ["a b"]
+    var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"];
     var letterCheck = /^[a-z]$/; //Regex to test for valid letter input
 
-//    var usedGuesses = 0;
     var totalGuesses = 5;
-//    var correctGuesses = 0;
-//    var remGuesses = 0;
-//    var matchLetter = false;
-//    var chosenWord = ""
-//    var gameWord = ""
+
     console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the Word\n");
     var chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]
 //    console.log(chosenWord);
