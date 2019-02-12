@@ -4,7 +4,7 @@ Bootcamp Unit 11 Advanced JavaScript and Node.js Assignment with emphasis on con
 
 In this unit's assignment, we are creating a Word Guess command-line game using constructor functions.
 
-### Criteria
+## Criteria
 
 The completed game should meet the following criteria:
 
@@ -38,4 +38,21 @@ The completed game should meet the following criteria:
 
   * the logic will disallow letters selected previously
 
+
+## Packages Required:
+
+Interactive Command Line User Interfaces:
+[Inquirer](https://www.npmjs.com/package/inquirer)
+
+## Installation
+
+In order to run this application locally you will need to install the following npm packages (as referenced above):
+
+* npm install inquirer
+
+## Usage
+
+`node game.js`
+
+game.js CLI will greet you and prompt you to begin guessing the letter for one of the 50 states of the USA.  A pattern of dashes will represent the state name to be guessed.  You will have eight attempts to guess the name.  If a correct letter is guessed the letter will populate in the array of dashes.  Incorrect guesses will result in an error and the guess count will decrement.  If you don't guess the state name in the alloted number of guesses you lose.  At the end of the game you will have the option to play again or exit.
 
