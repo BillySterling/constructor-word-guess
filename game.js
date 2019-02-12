@@ -16,6 +16,8 @@ var inquirer = require("inquirer");
 function playGame(){
     var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"];
 
+    var usedArray = [];
+
     //Regex to test for valid letter input
     var letterCheck = /^[a-z]$/; 
 
@@ -51,23 +53,41 @@ function playGame(){
             if (totalGuesses >= 1) {
                 gameWord.makeGuess(response.guess);
             }
+            // chech for selection of same letter
+            var usedIndex = -1;
+            var alreadyGuessed = false;
+            usedIndex = usedArray.indexOf(response.guess);
+            if (usedIndex > -1) {
+                alreadyGuessed = true;
+                };
+            // save letter selected
+            usedArray.push(response.guess);
             // set initially to false   
             var letterInWord = false;
-
             for (var i = 0; i < gameWord.letterArr.length; i++) {
-                if (response.guess === gameWord.letterArr[i].letter) {
+                if (response.guess === gameWord.letterArr[i].letter && !alreadyGuessed) {
                     letterInWord = true;
                 }
             }
             if (letterInWord) {
-                console.log("Correct! You Have " + totalGuesses + " Guesses Remaining.\n") }
+                console.log("Correct! You Have " + totalGuesses + " Guesses Remaining.\n") 
+                }
                 else {
+                    debugger;
                     totalGuesses--;
-                    if (totalGuesses === 0) {
-                        console.log("Incorrect\n");
-                    } else {
-                        console.log("Incorrect, try again! You Have " + totalGuesses + " Guesses Remaining.\n");
-                        }
+                    if (alreadyGuessed) {
+                        if (totalGuesses === 0) {
+                            console.log("Letter Already Guessed\n");
+                        } else {
+                            console.log("Letter Already Guessed, Try Again! You Have " + totalGuesses + " Guesses Remaining.\n");
+                            }
+                        } else {
+                            if (totalGuesses === 0) {
+                                console.log("Incorrect\n");
+                            } else {
+                                console.log("Incorrect, Try Again! You Have " + totalGuesses + " Guesses Remaining.\n");
+                                }                        
+                            }    
                     };
 
             matchLetter = false;
