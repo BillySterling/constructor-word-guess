@@ -13,6 +13,7 @@ var Word = require("./Word.js");
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
 
+// states array
 function playGame(){
     var wordArray = ["alabama","alaska","arizona","arkansas","california","colorado","connecticut","delaware","district of columbia","florida","georgia","hawaii","idaho","illinois","indiana","iowa","kansas","kentucky","louisiana","maine","montana","nebraska","nevada","new hampshire","new jersey","new mexico","new york","north carolina","north dakota","ohio","oklahoma","oregon","maryland","massachusetts","michigan","minnesota","mississippi","missouri","pennsylvania","rhode island","south carolina","south dakota","tennessee","texas","utah","vermont","virginia","washington","west virginia","wisconsin","wyoming"];
 
@@ -33,7 +34,7 @@ function playGame(){
             console.log(gameWord.letterArr[i].letter);
             gameWord.letterArr[i].guessed = true;
         };
-   };
+    };
 
     gameWord.dispWord()
 
@@ -64,6 +65,7 @@ function playGame(){
             usedArray.push(response.guess);
             // set initially to false   
             var letterInWord = false;
+            // if letter found (and not already selected previously) - we're good
             for (var i = 0; i < gameWord.letterArr.length; i++) {
                 if (response.guess === gameWord.letterArr[i].letter && !alreadyGuessed) {
                     letterInWord = true;
@@ -73,8 +75,8 @@ function playGame(){
                 console.log("Correct! You Have " + totalGuesses + " Guesses Remaining.\n") 
                 }
                 else {
-                    debugger;
                     totalGuesses--;
+                    // creating appropriate error messages. Don't ask to try again if no guesses remaining
                     if (alreadyGuessed) {
                         if (totalGuesses === 0) {
                             console.log("Letter Already Guessed\n");
@@ -90,21 +92,23 @@ function playGame(){
                             }    
                     };
 
+            // search letter array to see if letter previously found in array, if not it's a new match and we'll need to check if there are guesses remaining on down      
             matchLetter = false;
             for (var i=0; i < gameWord.letterArr.length; i++){
                 if (gameWord.letterArr[i].guessed === false){
                     matchLetter = true;
                 } 
             }
-
+            // if no more matches then the array is "exhausted" and the game has been won
             if (!matchLetter) {
                 gameWord.dispWord();
-                console.log("You Won!\n");
+                console.log("\nYou Won!\n");
                 replayGame();
                 } else {
                     gameWord.dispWord()
+                    // if there are guesses remaining player can try again - else game is over and will ask for replay
                     if (totalGuesses === 0) {
-                        console.log("You Lost!  The Answer is: " + chosenWord.toUpperCase());
+                        console.log("\nYou Lost!  The Answer is: " + chosenWord.toUpperCase() + "\n");
                         replayGame();
                     } else {
                         promptUser();
@@ -126,11 +130,9 @@ function replayGame(){
     ]).then(function(response) {
         if (response.again === "Again") {
             console.log("\nHere's your new state to guess:");
-            debugger;
-            usedGuesses = 0;
-            correctGuesses = 0;
             chosenWord = "";
             gameWord = "";
+            usedArray = [];
             playGame();
         } else {
             console.log("\nGoodbye!\n");
