@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*index.js**: The file containing the logic for the course of the game, which depends on `Word.js` and:
   * Randomly selects a word and uses the `Word` constructor to store it
   * Prompts the user for each guess and keeps track of the user's remaining guesses
@@ -26,15 +27,15 @@ function playGame(){
 
     console.log("\nWelcome to the GUESS THE STATE Game.  You Have " + totalGuesses + " Attempts to Guess the State Name\n");
     var chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]
-    gameWord = new Word(chosenWord)
+    var gameWord = new Word(chosenWord)
     gameWord.makeWord();
 
     for (var i = 0; i < gameWord.letterArr.length; i++) {
         if (!letterCheck.test(gameWord.letterArr[i].letter)) {
             console.log(gameWord.letterArr[i].letter);
             gameWord.letterArr[i].guessed = true;
-        };
-    };
+        }
+    }
 
     gameWord.dispWord()
 
@@ -60,7 +61,7 @@ function playGame(){
             usedIndex = usedArray.indexOf(response.guess);
             if (usedIndex > -1) {
                 alreadyGuessed = true;
-                };
+                }
             // save letter selected
             usedArray.push(response.guess);
             // set initially to false   
@@ -90,11 +91,11 @@ function playGame(){
                                 console.log("Incorrect, Try Again! You Have " + totalGuesses + " Guesses Remaining.\n");
                                 }                        
                             }    
-                    };
+                    }
 
             // search letter array to see if letter previously found in array, if not it's a new match and we'll need to check if there are guesses remaining on down      
-            matchLetter = false;
-            for (var i=0; i < gameWord.letterArr.length; i++){
+            var matchLetter = false;
+            for (i=0; i < gameWord.letterArr.length; i++){
                 if (gameWord.letterArr[i].guessed === false){
                     matchLetter = true;
                 } 
@@ -115,8 +116,8 @@ function playGame(){
                     }
                 }
         });
-    };
-};
+    }
+}
 
 function replayGame(){
 
@@ -130,14 +131,11 @@ function replayGame(){
     ]).then(function(response) {
         if (response.again === "Again") {
             console.log("\nHere's your new state to guess:");
-            chosenWord = "";
-            gameWord = "";
-            usedArray = [];
             playGame();
         } else {
             console.log("\nGoodbye!\n");
         }
     });
-};
+}
 
 playGame();
