@@ -1,12 +1,8 @@
-# constructor-word-guess game
+# Constructor-Word-Guess CLI Game
 
-Bootcamp Unit 11 Advanced JavaScript and Node.js Assignment with emphasis on constructors
-
-In this unit's assignment, we are creating a Word Guess command-line game using constructor functions.
+Creating a Word Guess command-line game using advanced JavaScript and Node.js (with emphasis on constructors).
 
 ## Criteria
-
-The completed game should meet the following criteria:
 
 1. The completed game should be able to receive user input using the `inquirer` or `prompt` npm packages.
 
