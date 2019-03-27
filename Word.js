@@ -15,7 +15,7 @@ function Word(char) {
         var gameArr = this.getWord.split("");
         for (var i=0; i < gameArr.length; i++) {
             this.letterArr.push(new Letter(gameArr[i]));
-        };
+        }
     };
     this.dispWord = function() {
         var dispArr = [];
@@ -29,6 +29,6 @@ function Word(char) {
             this.letterArr[i].checkLetter(char);
         }
     }
-};
+}
 
 module.exports = Word;
